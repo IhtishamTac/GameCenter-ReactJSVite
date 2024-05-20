@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import defaultImage from "../../assets/asset_storage/v1/thumbnail.png";
 import Services from "../../api/services";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ export const DetailGame = () => {
     const [loading, setLoading] = useState(false);
     const [game, setGame] = useState('');
     const { slug } = useParams();
+    const navigate = useNavigate();
     console.log(game);
     const getGame = async () => {
         setLoading(true);
@@ -72,8 +73,8 @@ export const DetailGame = () => {
                                 </div>
                             </div>
 
-                            <Link to={'/discover-games'} className="btn btn-danger w-100">Back</Link>
-
+                            {/* <Link to={'/discover-games'} className="btn btn-danger w-100">Back</Link> */}
+                            <button className="btn btn-danger w-100"onClick={() => navigate(-1)}>Back</button>
                         </div>
                     </div>
 
