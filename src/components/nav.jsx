@@ -1,10 +1,19 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { signout } from '../api/auth';
+import { LoadingAnimation } from './loading';
 
 export const NavBar = () => {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const handleSignout = () => {
+        signout(setLoading, navigate);
+    }
+    if (loading) return <LoadingAnimation />;
     return (
         <nav className="navbar navbar-expand-lg sticky-top bg-primary navbar-dark">
             <div className="container">
-                <Link className="navbar-brand" to="/">Gaming Portal</Link>
+                <Link className="navbar-brand" to="/landing">Gaming Portal</Link>
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li>
                         <Link to="/discover-games" className="nav-link px-2 text-white">Discover Games</Link>
@@ -16,10 +25,10 @@ export const NavBar = () => {
                         <Link to="#" className="nav-link px-2 text-white">User Profile</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link active bg-dark" to="#">Welcome, Player1</Link>
+                        <Link className="nav-link active bg-dark" to="#">Welcome, {sessionStorage.getItem('username') || 'Not found'}</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="#" className="btn bg-white text-primary ms-4">Sign Out</Link>
+                        <button onClick={handleSignout} className="btn bg-white text-primary ms-4">Sign out</button>
                     </li>
                 </ul>
             </div>

@@ -1,10 +1,10 @@
 import Services from "./services"
-const postgame = async(title,description,setLoading, navigate) => {
+const postgame = async (title, description, setLoading, navigate) => {
     setLoading(true);
-    await Services.addgame(title, description).then(()=>{
+    await Services.addgame(title, description).then(() => {
         setLoading(false);
         navigate('/manage-games');
-    }).catch((err)=>{
+    }).catch((err) => {
         alert(err.response.data.message || err.response.data.slug);
         setLoading(false);
     });
@@ -12,21 +12,32 @@ const postgame = async(title,description,setLoading, navigate) => {
 
 const deleteGame = async (setLoading, slug) => {
     const confDel = confirm('Confirm delete?');
-    if(confDel){
+    if (confDel) {
         setLoading(true);
-        await Services.deletegame(slug).then(()=>{
+        await Services.deletegame(slug).then(() => {
             setLoading(false);
-        }).catch((err)=>{
+        }).catch((err) => {
             alert(err.response.data.message);
             setLoading(false);
         })
     }
 }
 
+const editgame = async (title, description, setLoading, slug, navigate) => {
+    setLoading(true);
+    await Services.editgame(slug, title, description).then(() => {
+        setLoading(false);
+        navigate('/manage-games');
+    }).catch((err) => {
+        alert(err.response.data.message);
+        setLoading(false);
+    })
+}
 
 const Post = {
     postgame,
-    deleteGame
+    deleteGame,
+    editgame
 }
 
 export default Post;
