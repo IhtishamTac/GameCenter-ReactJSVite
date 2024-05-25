@@ -5,7 +5,7 @@ import Services from "../../api/services";
 import defaultImage from "../../assets/asset_storage/v1/thumbnail.png";
 import { Link } from "react-router-dom";
 
-export const DiscoverGames = () => {
+ const DiscoverGames = () => {
     const [loading, setLoading] = useState(false);
     const [games, setGames] = useState([]);
     const [element, setElement] = useState([]);
@@ -82,3 +82,4 @@ export const DiscoverGames = () => {
         </main>
     );
 }
+export default DiscoverGames;

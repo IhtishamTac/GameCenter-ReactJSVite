@@ -1,18 +1,32 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { NavBar } from "../../components/nav";
 import { LoadingAnimation } from "../../components/loading";
 import { Link } from 'react-router-dom';
-import Services from "../../api/services";
+// import Services from "../../api/services";
 import Post from "../../api/post";
 import defaultImage from "../../assets/asset_storage/v1/thumbnail.png";
 
-export const ManageGames = () => {
+const ManageGames = () => {
+    const newAx = axios.create({
+        baseURL: 'http://127.0.0.1:8000/api/v1/',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    // Set Authorization header if token exists
+    const token = sessionStorage.getItem('token');
+    if (token) {
+        newAx.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+
     const [loading, setLoading] = useState(false);
     const [games, setGames] = useState([]);
     const fetchGames = async () => {
         setLoading(true);
         try {
-            const res = await Services.getgamescreated();
+            const res = await newAx.get('createdgames');
             setGames(res.data.games || []);
             setLoading(false);
         } catch (err) {
@@ -27,7 +41,7 @@ export const ManageGames = () => {
     const handleDelete = async (slug) => {
         setLoading(true);
         try {
-            await Post.deleteGame(setLoading, slug).then(()=>{
+            await Post.deleteGame(setLoading, slug).then(() => {
                 fetchGames();
             });
         } catch (err) {
@@ -73,7 +87,7 @@ export const ManageGames = () => {
                                     <td>
                                         <Link to={`/detail-game/${game.slug}`} className="btn btn-sm btn-primary">Detail</Link>
                                         <Link to={`/update-game/${game.slug}`} className="btn btn-sm btn-secondary">Update</Link>
-                                        <button onClick={() => {handleDelete(game.slug)}} className="btn btn-sm btn-danger">Delete</button>
+                                        <button onClick={() => { handleDelete(game.slug) }} className="btn btn-sm btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -86,3 +100,4 @@ export const ManageGames = () => {
         </main>
     )
 }
+export default ManageGames;

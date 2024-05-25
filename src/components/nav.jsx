@@ -1,13 +1,25 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signout } from '../api/auth';
 import { LoadingAnimation } from './loading';
+import Services from '../api/services';
 
 export const NavBar = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const handleSignout = () => {
-        signout(setLoading, navigate);
+    const signout = async () => {
+        setLoading(true);
+        try {
+            const res = await Services.signout();
+            if (res && res.status == 200) {
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('username');
+                navigate('/');
+            }
+        } catch (err) {
+            setLoading(false);
+            alert(err.response.data.message);
+        }
+    
     }
     if (loading) return <LoadingAnimation />;
     return (
@@ -28,7 +40,7 @@ export const NavBar = () => {
                         <Link className="nav-link active bg-dark" to="#">Welcome, {sessionStorage.getItem('username') || 'Not found'}</Link>
                     </li>
                     <li className="nav-item">
-                        <button onClick={handleSignout} className="btn bg-white text-primary ms-4">Sign out</button>
+                        <button onClick={signout} className="btn bg-white text-primary ms-4">Sign out</button>
                     </li>
                 </ul>
             </div>

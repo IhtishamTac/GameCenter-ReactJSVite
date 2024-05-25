@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signin } from '../../api/auth';
 import { LoadingAnimation } from '../../components/loading';
 
-export const LoginPage = () => {
+const LoginPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [username, setUsername] = useState('');
@@ -34,24 +34,24 @@ export const LoginPage = () => {
                                     <form onSubmit={handleSignin}>
                                         <div className="form-group my-3">
                                             <label htmlFor="username" className="mb-1 text-muted">Username</label>
-                                            <input 
-                                                type="text" 
-                                                id="username" 
-                                                name="username"  
-                                                onChange={(e) => handleInputChange(e, setUsername)} 
-                                                className="form-control" 
-                                                autoFocus 
+                                            <input
+                                                type="text"
+                                                id="username"
+                                                name="username"
+                                                onChange={(e) => handleInputChange(e, setUsername)}
+                                                className="form-control"
+                                                autoFocus
                                             />
                                         </div>
 
                                         <div className="form-group my-3">
                                             <label htmlFor="password" className="mb-1 text-muted">Password</label>
-                                            <input 
-                                                type="password" 
-                                                id="password" 
-                                                name="password"  
-                                                onChange={(e) => handleInputChange(e, setPassword)} 
-                                                className="form-control" 
+                                            <input
+                                                type="password"
+                                                id="password"
+                                                name="password"
+                                                onChange={(e) => handleInputChange(e, setPassword)}
+                                                className="form-control"
                                             />
                                         </div>
 
@@ -74,3 +74,4 @@ export const LoginPage = () => {
         </main>
     );
 };
+export default LoginPage;

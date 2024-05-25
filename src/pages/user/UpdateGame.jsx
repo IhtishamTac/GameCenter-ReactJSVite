@@ -4,7 +4,7 @@ import Services from "../../api/services";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Post from "../../api/post";
 
-export const UpdateGame = () => {
+ const UpdateGame = () => {
     const [loading, setLoading] = useState(false);
     const { slug } = useParams();
     const navigate = useNavigate();
@@ -109,3 +109,5 @@ export const UpdateGame = () => {
         </main>
     );
 };
+
+export default UpdateGame;

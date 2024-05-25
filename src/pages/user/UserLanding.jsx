@@ -1,5 +1,5 @@
 import { NavBar } from "../../components/nav";
-export const UserLanding = () => {
+ const UserLanding = () => {
     return (
         <main>
             <NavBar />
@@ -20,3 +20,4 @@ export const UserLanding = () => {
 
     );
 }
+export default UserLanding;

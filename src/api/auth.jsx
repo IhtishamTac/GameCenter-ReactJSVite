@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Services from './services';
+
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api/v1/';
 
 export const signin = async (username, password, setLoading, navigate) => {
@@ -18,18 +18,3 @@ export const signin = async (username, password, setLoading, navigate) => {
     }
 };
 
-export const signout = async (setLoading, navigate) => {
-    setLoading(true);
-    try {
-        const res = await Services.signout();
-        if (res && res.status == 200) {
-            sessionStorage.removeItem('token');
-            sessionStorage.removeItem('username');
-            navigate('/');
-        }
-    } catch (err) {
-        setLoading(false);
-        alert(err.response.data.message);
-    }
-
-}

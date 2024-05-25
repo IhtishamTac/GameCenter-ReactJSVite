@@ -3,7 +3,7 @@ import { LoadingAnimation } from "../../components/loading";
 import Post from "../../api/post";
 import { Link, useNavigate } from 'react-router-dom';
 
-export const AddGame = () => {
+ const AddGame = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [title, setTitle] = useState('');
@@ -89,3 +89,4 @@ export const AddGame = () => {
 
     )
 }
+export default AddGame;

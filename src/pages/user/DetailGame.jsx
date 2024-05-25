@@ -4,7 +4,7 @@ import Services from "../../api/services";
 import { useEffect, useState } from "react";
 import { LoadingAnimation } from "../../components/loading";
 
-export const DetailGame = () => {
+ const DetailGame = () => {
     const [loading, setLoading] = useState(false);
     const [game, setGame] = useState('');
     const { slug } = useParams();
@@ -83,3 +83,4 @@ export const DetailGame = () => {
         </main>
     )
 }
+export default DetailGame;
